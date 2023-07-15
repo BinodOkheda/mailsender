@@ -31,7 +31,7 @@ app.post('/send-email', (req, res) => {
     const senderEmail = emailContact;
 
     const email = {
-      to: 'binodkhan1234567890@gmail.com',
+      to: 'binodokheda3@gmail.com',
       from: "jigsvadiyatar6557@gmail.com",
       subject:"Message from Puzzle Innovation WebSite customer wants to contect us.",
       text: `Name: ${fullName}\nEmail: ${emailContact}\nCountryCode:${countryCode}\nPhone:${phone}\nBudget: ${budget}\n\n Message: ${content}`
