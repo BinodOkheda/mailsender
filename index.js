@@ -53,7 +53,7 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
       text: `Name: ${fullName}\nEmail: ${emailContact}\nCountryCode:${countryCode}\nPhone:${phone}\nBudget: ${budget}\n\n Message: ${content}`,
       attachments: [
         {
-          content: fs.readFileSync(attachment.path).toString('base64'),
+         content: fs.readFileSync(attachment.path).toString('base64'),
           filename: attachment.originalname,
           type: attachment.mimetype,
           disposition: 'attachment',
