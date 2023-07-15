@@ -47,7 +47,7 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
     // res.send()
     // res.redirect("/")
     const email = {
-      to: 'binodokheda3@gmail.com',
+      to: 'sales@puzzleinnovationz@gmail.com',
       from: "puzzleinnovationz6@gmail.com",
       subject:"Message from Puzzle Innovation WebSite customer wants to contect us.",
       text: `Name: ${fullName}\nEmail: ${emailContact}\nCountryCode:${countryCode}\nPhone:${phone}\nBudget: ${budget}\n\n Message: ${content}`,
