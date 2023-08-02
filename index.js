@@ -9,11 +9,11 @@ const mongoose = require('mongoose');
 
 
 const User = mongoose.model('User', {
-  emailID:String,
+  emailID:{type:String,unique:true},
   course: String,
   firstName: String,
   lastName: String,
-  phoneNumber: String,
+  phoneNumber: {type:String,unique:true},
   location: String,
   degree: String,
   experience: String,
@@ -90,8 +90,10 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
   });
 
 
-  app.post('/submit', (req, res) => {
-    const user = new User({
+  app.post('/submit', async (req, res) => {
+
+    try {
+      const user = new User({
         emailID:req.body.emailID,
         course: req.body.course,
         firstName: req.body.firstName,
@@ -103,13 +105,12 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
         linkedin: req.body.linkedin
     });
 
-    user.save((err) => {
-        if (err) {
-            res.status(500).send('Error saving user');
-        } else {
-            res.status(200).send('User saved successfully');
-        }
-    });
+    await user.save();
+    res.status(500).send('your form has been submitted.');
+    } catch (error) {
+      res.status(200).send('User saved successfully');
+    }
+
 });
 
 
