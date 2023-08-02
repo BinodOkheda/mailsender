@@ -5,7 +5,20 @@ const sgMail = require('@sendgrid/mail');
 const cors = require("cors");
 const fs = require('fs');
 const path =require("path")
+const mongoose = require('mongoose');
 
+
+const User = mongoose.model('User', {
+  emailID:String,
+  course: String,
+  firstName: String,
+  lastName: String,
+  phoneNumber: String,
+  location: String,
+  degree: String,
+  experience: String,
+  linkedin: String
+});
 
 
 app.use(express.json())
@@ -77,8 +90,43 @@ app.post('/send-email', upload.single('attachment'), (req, res) => {
   });
 
 
+  app.post('/submit', (req, res) => {
+    const user = new User({
+        emailID:req.body.emailID,
+        course: req.body.course,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        location: req.body.location,
+        degree: req.body.degree,
+        experience: req.body.experience,
+        linkedin: req.body.linkedin
+    });
+
+    user.save((err) => {
+        if (err) {
+            res.status(500).send('Error saving user');
+        } else {
+            res.status(200).send('User saved successfully');
+        }
+    });
+});
 
 
-app.listen(3000, () => {
+
+
+
+
+app.listen(3000,async () => {
+  try {
+    
+   await mongoose.connect(process.env.mongoURL);
+   console.log("connected to DB")
+
+  } catch (error) {
+    
+  }
+
+
   console.log('Server is running on port 3000');
 });
